@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .content {
+        border: 1px solid #64B5F6;
+        border-radius: 20px;
+        background-color: #E3F2FD;
+        width: 50%;
+        height: 100px;
+        color: #0D47A1;
+        padding: 20px;
+    }
+}
