@@ -28,21 +28,18 @@ export class AppComponent {
   dropdownData = gameData
   gameTypes = GameType
   gameType: string = this.gameTypes[gameData[0].type]
-  //GameType = this.gameTypes[this.gameTypes["PEOPLE"]]
-  constructor(private gamePlayService: GamePlayService) {
-    console.log(this.gameTypes[0])
-    console.log(this.gameTypes[gameData[0].type])
-
-    console.log(this.gameTypes["PEOPLE"])
-
-  }
+  constructor(private gamePlayService: GamePlayService) {}
 
   changeGameType(type: MatSelectChange) {
-    console.log(type)
     this.gameType = type.value
+    this.resetGame()
   }
 
   playTheGame() {
-    this.gamePlayService.playTheGame(this.gameTypes[this.gameType as keyof typeof GameType])
+    this.gamePlayService.playTheGame(GameType[this.gameType as keyof typeof GameType])
+  }
+
+  resetGame() {
+    this.gamePlayService.resetGame()
   }
 }

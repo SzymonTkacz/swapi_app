@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { forkJoin, take } from 'rxjs';
 import { Starship } from '../models/starship.model';
 import { Person } from '../models/person.model';
@@ -14,9 +14,9 @@ export class GamePlayService {
   apiBase = "https://www.swapi.tech/api"
   randomIds: string[] = []
   gameUrl: string = ""
-  gameTypes = GameType
-  numbersToCompare: number[] = []
   gameType: GameType | undefined = undefined
+  cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
+  cardData = signal<CardData[]>(this.cardDataInitialValues)
 
   constructor(private http: HttpClient) { }
 
@@ -43,7 +43,7 @@ export class GamePlayService {
       return []
     }
     const id1 = Math.floor(Math.random() * ids.length);
-    const reducedIds = ids.filter(x => x != ids[id1])
+    const reducedIds = ids.filter(x => x !== ids[id1])
     const id2 = Math.floor(Math.random() * reducedIds.length);
 
     return [ids[id1], reducedIds[id2]]
@@ -60,53 +60,64 @@ export class GamePlayService {
       const dataArray: any[] = [data1.result.properties, data2.result.properties]
       const cardDataArray: CardData[] = []
 
-      dataArray.forEach(item => {
-        // let cardData: CardData = {}
-        // if(gameType) {
-        //   cardData.properties = item as Person
-        // } else {
-        //   cardData.properties = item as Starship
-        // }
-        //let x = typeof(Starship)
-        //cardDataArray.push(cardData)
+      dataArray.forEach((item, index) => {
+        cardDataArray.push(this.parseCardProperties(item, index))
       })
 
-      // if(isPersonData) {
-
-      // }
-      console.log(data1)
-      console.log(data2)
-    
-      // make your last http request here.
+      this.findWinner(cardDataArray)
+      this.updateScore(cardDataArray)
+      this.cardData.set(cardDataArray)
+      console.log(cardDataArray)
     });
   }
 
-  parseCardProperties(item: any): Person | Starship |undefined {
-    if(this.gameType === this.gameTypes.PEOPLE) {
-      this.numbersToCompare.push(Number(item.mass))
-      return item as Person
+  parseCardProperties(item: any, index: number): CardData {
+    const cardDataItem: CardData = {totalScore: this.cardData()[index].totalScore}
+    switch(this.gameType) {
+      case GameType.PEOPLE: {
+        cardDataItem.numberToCompare = Number(item.mass)
+        cardDataItem.properties = item as Person
+        break
+      }
+      case GameType.STARSHIPS: {
+        cardDataItem.numberToCompare = Number(item.crew)
+        cardDataItem.properties = item as Starship
+        break
+      }
+      default: { 
+        cardDataItem.properties = undefined
+        break; 
+     } 
     }
-    if(this.gameType === this.gameTypes.STARSHIPS) {
-      this.numbersToCompare.push(Number(item.mass))
-      return item as Starship
-    }
-    return undefined
+    return cardDataItem
   }
 
-  getWinnerIndex(array: string[]) {
+  findWinner(cards: CardData[]) {
+    if(cards.length != 2) {
+      return
+    }
+    if(!cards[0].numberToCompare || !cards[1].numberToCompare) {
+      return
+    }
 
+    if(cards[0].numberToCompare > cards[1].numberToCompare) {
+      cards[0].isWinner = true
+    }
+    else if(cards[0].numberToCompare < cards[1].numberToCompare) {
+      cards[1].isWinner = true
+    }
+  }
+
+  updateScore(cards: CardData[]) {
+    const winner = cards.find(x => x.isWinner)
+    if(!winner) {
+      return
+    } else {
+      winner.totalScore += 1
+    }
   }
 
   resetGame() {
-
+    this.cardData.set(this.cardDataInitialValues)
   }
 }
-
-// interface forComparison {
-//   numbers: number
-
-// }
-type ObjectType<T> = 
-    T extends "circle" ? Person :
-    T extends "square" ? Starship :
-    never;

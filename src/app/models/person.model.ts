@@ -1,4 +1,4 @@
-export interface Person {
+export interface Person {    
     birth_year: string
     created: string
     edited: string
