@@ -1,8 +1,29 @@
 <div class="container">
   <div class="content">
+    <nav>
+      <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select [(value)]="gameType" (selectionChange)="changeGameType($event)">
+          @for (item of dropdownData; track item) {
+            <mat-option [value]="gameTypes[item.type]">{{item.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="danger">
+        <mat-icon>restart_alt</mat-icon>
+        Reset game
+      </button>
+    </nav>
+    <div class="cards">
+      <app-card></app-card>
+      <app-card></app-card>
+    </div>
     <h1>ELO 320</h1>
-    <mat-card appearance="outlined">
-      <mat-card-content>Simple card</mat-card-content>
-    </mat-card>
+    <div class="play-button">
+      <button mat-flat-button (click)="playTheGame()">
+        <mat-icon>play_arrow</mat-icon>
+        Play
+      </button>
+    </div>
   </div>
 </div> 

@@ -6,16 +6,51 @@
 
     .content {
         border: 1px solid #64B5F6;
-        border-radius: 20px;
+        border-radius: 2rem;
         background-color: #E3F2FD;
-        width: 50%;
-        height: 800px;
+        width: 50rem;
+        height: 30rem;
         color: #0D47A1;
-        padding: 20px;
+        padding: 2rem;
         background-image: url(../assets/free-star-wars-wallpaper_102634769_273.jpg);
         background-color: rgba(255,255,255,0.7);
         background-blend-mode: lighten;
         background-repeat:no-repeat;
         background-position: center center;
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+
+            .mat-danger {
+                background-color: #B71C1C;
+                color: #ffffff;
+            }
+
+            .mat-select-panel {
+                background: red;
+            }
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+
+            app-card {                
+                width: 100%;
+            }
+        }
+
+        .play-button {
+            display: flex;
+            justify-content: center;
+
+            button {
+                width: 20rem;
+            }
+        }
+
     }
 }
