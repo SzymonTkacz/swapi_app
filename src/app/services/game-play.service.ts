@@ -17,10 +17,12 @@ export class GamePlayService {
   gameType: GameType | undefined = undefined
   cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
   cardData = signal<CardData[]>(this.cardDataInitialValues)
+  loading = signal<boolean>(false)
 
   constructor(private http: HttpClient) { }
 
   playTheGame(type: GameType) {
+    this.loading.set(true)
     this.gameType = type
     this.gameUrl = gameData.filter(x => x.type === type)[0].url
     return this.http.get(`${this.apiBase}/${this.gameUrl}?page=1&limit=100`).pipe(take(1)).subscribe({
@@ -31,6 +33,9 @@ export class GamePlayService {
           ids.push(item.uid)
         })
         this.randomIds = this.getRandomIds(ids)
+      },
+      error: () => {
+        this.loading.set(false)
       },
       complete: () => {
         this.getCardsData()
@@ -67,6 +72,7 @@ export class GamePlayService {
       this.findWinner(cardDataArray)
       this.updateScore(cardDataArray)
       this.cardData.set(cardDataArray)
+      this.loading.set(false)
       console.log(cardDataArray)
     });
   }

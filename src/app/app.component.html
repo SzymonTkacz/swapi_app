@@ -15,9 +15,10 @@
       </button>
     </nav>
     <div class="cards">
-      <app-card></app-card>
-      <app-card></app-card>
+      <app-card [playerNumber]="1" [gameType]="gameType" [cardData]="cardData()[0]"></app-card>
+      <app-card [playerNumber]="2" [gameType]="gameType" [cardData]="cardData()[1]"></app-card>
     </div>
+    {{cardData()[0].numberToCompare}}
     <h1>ELO 320</h1>
     <div class="play-button">
       <button mat-flat-button (click)="playTheGame()">

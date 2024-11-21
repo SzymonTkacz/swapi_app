@@ -1,6 +1,16 @@
 <mat-card appearance="outlined" class="people">
     <mat-card-header>
-        <mat-card-title>Header title</mat-card-title>
+        <mat-card-title>Player {{playerNumber}}</mat-card-title>
     </mat-card-header>
-    <mat-card-content>Simple card</mat-card-content>
+    <mat-card-content>
+        @switch (gameType) {
+            @case (gameTypes[gameTypes.PEOPLE]) {
+                <p>Ludzie</p>
+            }
+            @case (gameTypes[gameTypes.STARSHIPS]) {
+                <p>Statki</p>
+            }
+        }
+
+    </mat-card-content>
 </mat-card>
