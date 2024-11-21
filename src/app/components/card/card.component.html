@@ -4,13 +4,38 @@
     </mat-card-header>
     <mat-card-content>
         @switch (gameType) {
-            @case (gameTypes[gameTypes.PEOPLE]) {
-                <p>Ludzie</p>
+            @case (gameTypes[gameTypes.PEOPLE]) {                
+                @for(row of $any(getProperties()); track row?.name) {
+                    <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
+                    <app-card-row label="Mass" [value]="row?.mass" [loading]="loading" [highlighted]="true"></app-card-row>
+                    <app-card-row label="Birth year" [value]="row?.birth_year" [loading]="loading"></app-card-row>
+                    <app-card-row label="Created" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Edited" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Eye color" [value]="row?.eye_color" [loading]="loading"></app-card-row>
+                    <app-card-row label="Gender" [value]="row?.gender" [loading]="loading"></app-card-row>
+                    <app-card-row label="Hair color" [value]="row?.hair_color" [loading]="loading"></app-card-row>
+                    <app-card-row label="Height" [value]="row?.height" [loading]="loading"></app-card-row>
+                    <app-card-row label="Skin color" [value]="row?.skin_color" [loading]="loading"></app-card-row>
+                }
             }
             @case (gameTypes[gameTypes.STARSHIPS]) {
-                <p>Statki</p>
+                @for(row of $any(getProperties()); track row?.name) {
+                    <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
+                    <app-card-row label="Crew" [value]="row?.crew" [loading]="loading" [highlighted]="true"></app-card-row>
+                    <app-card-row label="Model" [value]="row?.model" [loading]="loading"></app-card-row>
+                    <app-card-row label="MGLT" [value]="row?.MGLT" [loading]="loading"></app-card-row>
+                    <app-card-row label="Created" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Edited" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Cargo capacity" [value]="row?.cargo_capacity" [loading]="loading"></app-card-row>
+                    <app-card-row label="Consumables" [value]="row?.consumables" [loading]="loading"></app-card-row>
+                    <app-card-row label="Cost in credits" [value]="row?.cost_in_credits" [loading]="loading"></app-card-row>
+                    <app-card-row label="Hyperdrive rating" [value]="row?.hyperdrive_rating" [loading]="loading"></app-card-row>
+                    <app-card-row label="Length" [value]="row?.length" [loading]="loading"></app-card-row>
+                    <app-card-row label="Manufacturer" [value]="row?.manufacturer" [loading]="loading"></app-card-row>
+                    <app-card-row label="Max atmosphering speed" [value]="row?.max_atmosphering_speed" [loading]="loading"></app-card-row>
+                    <app-card-row label="Passengers" [value]="row?.passengers" [loading]="loading"></app-card-row>
+                }
             }
         }
-
     </mat-card-content>
 </mat-card>

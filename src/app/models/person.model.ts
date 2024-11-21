@@ -1,4 +1,6 @@
 export interface Person {    
+    name: string
+    mass: string
     birth_year: string
     created: string
     edited: string
@@ -6,8 +8,5 @@ export interface Person {
     gender: string
     hair_color: string
     height: string
-    homeworld: string
-    mass: string
-    name: string
     skin_color: string
 }

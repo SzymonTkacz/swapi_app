@@ -9,11 +9,10 @@
         border-radius: 2rem;
         background-color: #E3F2FD;
         width: 50rem;
-        height: 30rem;
         color: #0D47A1;
         padding: 2rem;
         background-image: url(../assets/free-star-wars-wallpaper_102634769_273.jpg);
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255,255,255,0.6);
         background-blend-mode: lighten;
         background-repeat:no-repeat;
         background-position: center center;
@@ -21,7 +20,7 @@
         nav {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
 
             .mat-danger {
                 background-color: #B71C1C;
@@ -44,6 +43,7 @@
         }
 
         .play-button {
+            margin-top: 2rem;
             display: flex;
             justify-content: center;
 

@@ -2,7 +2,7 @@
   <div class="content">
     <nav>
       <mat-form-field>
-        <mat-label>Favorite food</mat-label>
+        <mat-label>Select game type</mat-label>
         <mat-select [(value)]="gameType" (selectionChange)="changeGameType($event)">
           @for (item of dropdownData; track item) {
             <mat-option [value]="gameTypes[item.type]">{{item.label}}</mat-option>
@@ -18,8 +18,6 @@
       <app-card [playerNumber]="1" [gameType]="gameType" [cardData]="cardData()[0]"></app-card>
       <app-card [playerNumber]="2" [gameType]="gameType" [cardData]="cardData()[1]"></app-card>
     </div>
-    {{cardData()[0].numberToCompare}}
-    <h1>ELO 320</h1>
     <div class="play-button">
       <button mat-flat-button (click)="playTheGame()">
         <mat-icon>play_arrow</mat-icon>
