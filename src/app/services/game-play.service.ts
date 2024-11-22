@@ -73,7 +73,6 @@ export class GamePlayService {
       this.updateScore(cardDataArray)
       this.cardData.set(cardDataArray)
       this.loading.set(false)
-      console.log(cardDataArray)
     });
   }
 
@@ -81,12 +80,12 @@ export class GamePlayService {
     const cardDataItem: CardData = {totalScore: this.cardData()[index].totalScore}
     switch(this.gameType) {
       case GameType.PEOPLE: {
-        cardDataItem.numberToCompare = Number(item.mass)
+        cardDataItem.numberToCompare = Number(item.mass?.replace(/,/g, ''))
         cardDataItem.properties = item as Person
         break
       }
       case GameType.STARSHIPS: {
-        cardDataItem.numberToCompare = Number(item.crew)
+        cardDataItem.numberToCompare = Number(item.crew?.replace(/,/g, ''))
         cardDataItem.properties = item as Starship
         break
       }

@@ -1,15 +1,17 @@
 mat-card {
     background-color: rgba(255,255,255,0.7);
     border: 3px solid #0D47A1;
-}
 
-.people {
-    border: 1px solid yellow;
+    .footer {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+    }
+
 }
 
 .winner {
-    border: 3px solid greenyellow;
-    
+    border: 3px solid greenyellow;    
     animation: blink 0.2s;
     animation-iteration-count: 100000;
 }

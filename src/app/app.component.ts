@@ -31,7 +31,6 @@ export class AppComponent {
   gameType: string = this.gameTypes[gameData[0].type]
   loading = signal<boolean>(false)
   cardData = signal<CardData[]>([])
-  // loading = signal<boolean>(false)
   constructor(private gamePlayService: GamePlayService) {
     this.cardData = this.gamePlayService.cardData
     this.loading = this.gamePlayService.loading

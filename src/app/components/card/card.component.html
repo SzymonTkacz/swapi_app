@@ -5,7 +5,7 @@
     <mat-card-content>
         @switch (gameType) {
             @case (gameTypes[gameTypes.PEOPLE]) {                
-                @for(row of $any(getProperties()); track row?.name) {
+                @for(row of getPersonProperties(); track row?.name) {
                     <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
                     <app-card-row label="Mass" [value]="row?.mass" [loading]="loading" [highlighted]="true"></app-card-row>
                     <app-card-row label="Birth year" [value]="row?.birth_year" [loading]="loading"></app-card-row>
@@ -19,7 +19,7 @@
                 }
             }
             @case (gameTypes[gameTypes.STARSHIPS]) {
-                @for(row of $any(getProperties()); track row?.name) {
+                @for(row of getStarshipProperties(); track row?.name) {
                     <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
                     <app-card-row label="Crew" [value]="row?.crew" [loading]="loading" [highlighted]="true"></app-card-row>
                     <app-card-row label="Model" [value]="row?.model" [loading]="loading"></app-card-row>
@@ -38,4 +38,9 @@
             }
         }
     </mat-card-content>
+    <mat-card-footer>
+        <div class="footer">
+            <h3>{{cardData.totalScore}}</h3>
+        </div>
+    </mat-card-footer>
 </mat-card>

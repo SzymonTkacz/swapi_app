@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class CardRowComponent {
   @Input() label: string = ""
-  @Input() value: string = ""
+  @Input() value?: string = ""
   @Input() loading: boolean = false
   @Input() highlighted: boolean = false
 }
