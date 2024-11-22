@@ -25,7 +25,6 @@ import { CardData } from './models/card-data.model';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'swapi_app';
   dropdownData = gameData
   gameTypes = GameType
   gameType: string = this.gameTypes[gameData[0].type]

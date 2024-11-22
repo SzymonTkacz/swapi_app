@@ -11,9 +11,10 @@ describe('CardComponent', () => {
       imports: [CardComponent]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
+    component.cardData = {totalScore: 0}
     fixture.detectChanges();
   });
 
