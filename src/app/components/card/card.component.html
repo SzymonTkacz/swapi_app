@@ -1,4 +1,4 @@
-<mat-card appearance="outlined" class="people">
+<mat-card appearance="outlined" [class.winner]="cardData.isWinner && !loading">
     <mat-card-header>
         <mat-card-title>Player {{playerNumber}}</mat-card-title>
     </mat-card-header>
