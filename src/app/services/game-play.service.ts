@@ -25,8 +25,8 @@ export class GamePlayService {
     this.loading.set(true)
     this.gameType = type
     this.gameUrl = gameData.filter(x => x.type === type)[0].url
-    return this.http.get(`${this.apiBase}/${this.gameUrl}?page=1&limit=100`).pipe(take(1)).subscribe({
-      next: (data: any) => {
+    this.http.get<any>(`${this.apiBase}/${this.gameUrl}?page=1&limit=100`).pipe(take(1)).subscribe({
+      next: (data) => {
         const ids: string[] = []
         const items: [any] = data.results
         items?.forEach(item => {
@@ -34,7 +34,8 @@ export class GamePlayService {
         })
         this.randomIds = this.getRandomIds(ids)
       },
-      error: () => {
+      error: (err) => {
+        console.log(err)
         this.loading.set(false)
       },
       complete: () => {
@@ -61,19 +62,32 @@ export class GamePlayService {
     forkJoin([
       this.http.get<any>(`${this.apiBase}/${this.gameUrl}/${this.randomIds[0]}`),
       this.http.get<any>(`${this.apiBase}/${this.gameUrl}/${this.randomIds[1]}`),
-    ]).subscribe(([data1, data2]) => {
-      const dataArray: any[] = [data1.result.properties, data2.result.properties]
-      const cardDataArray: CardData[] = []
+    ])
+    .subscribe({
+        next: ([data1, data2]) => {
+          const dataArray: any[] = [data1.result.properties, data2.result.properties]
+          const cardDataArray: CardData[] = []
 
-      dataArray.forEach((item, index) => {
-        cardDataArray.push(this.parseCardProperties(item, index))
-      })
+          dataArray.forEach((item, index) => {
+            cardDataArray.push(this.parseCardProperties(item, index))
+          })
 
-      this.findWinner(cardDataArray)
-      this.updateScore(cardDataArray)
-      this.cardData.set(cardDataArray)
-      this.loading.set(false)
-    });
+          this.findWinner(cardDataArray)
+          this.updateScore(cardDataArray)
+          this.cardData.set(cardDataArray)
+        },
+        error: (err) => {
+          console.log(err)
+          this.cardData.set([
+            {...this.cardData()[0], properties: undefined, isWinner: undefined},
+            {...this.cardData()[1], properties: undefined, isWinner: undefined},
+          ])          
+          this.loading.set(false)
+        },
+        complete: () => {
+          this.loading.set(false)
+        }
+      });
   }
 
   parseCardProperties(item: any, index: number): CardData {
