@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { forkJoin, take } from 'rxjs';
 import { Starship } from '../models/starship.model';
 import { Person } from '../models/person.model';
@@ -18,8 +18,7 @@ export class GamePlayService {
   cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
   cardData = signal<CardData[]>(this.cardDataInitialValues)
   loading = signal<boolean>(false)
-
-  constructor(private http: HttpClient) { }
+  http = inject(HttpClient)
 
   playTheGame(type: GameType) {
     this.loading.set(true)

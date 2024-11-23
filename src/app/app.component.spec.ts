@@ -3,16 +3,18 @@ import { AppComponent } from './app.component';
 import { GamePlayService } from './services/game-play.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
-  let gamePlayServiceSpy: SpyObj<GamePlayService>
+  //let gamePlayServiceSpy: SpyObj<GamePlayService>
+  //let service: GamePlayService;
 
   beforeEach(async () => {
-    gamePlayServiceSpy = createSpyObj('GamePlayService', ['playTheGame'])
+    //gamePlayServiceSpy = createSpyObj('GamePlayService', ['playTheGame'])
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{provide: GamePlayService, useValue: gamePlayServiceSpy}]
+      providers: [provideHttpClient()]
     }).compileComponents();
   });
 

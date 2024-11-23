@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MatCardModule} from '@angular/material/card'
 import { GamePlayService } from './services/game-play.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { gameData } from './consts/game-data.const';
 import { GameType } from './models/game-type.model';
-import { CardData } from './models/card-data.model';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +19,7 @@ import { CardData } from './models/card-data.model';
     CommonModule, MatCardModule, MatButtonModule, MatIconModule, CardComponent,
     MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule
   ],
-  providers: [],
+  providers: [GamePlayService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -28,12 +27,9 @@ export class AppComponent {
   dropdownData = gameData
   gameTypes = GameType
   gameType: string = this.gameTypes[gameData[0].type]
-  loading = signal<boolean>(false)
-  cardData = signal<CardData[]>([])
-  constructor(private gamePlayService: GamePlayService) {
-    this.cardData = this.gamePlayService.cardData
-    this.loading = this.gamePlayService.loading
-  }
+  gamePlayService = inject(GamePlayService)
+  cardData = this.gamePlayService.cardData
+  loading = this.gamePlayService.loading
 
   changeGameType(type: MatSelectChange) {
     this.gameType = type.value
