@@ -11,16 +11,16 @@ import { GameType } from '../models/game-type.model';
   providedIn: 'root'
 })
 export class GamePlayService {
-  apiBase = "https://www.swapi.tech/api"
-  randomIds: string[] = []
-  gameUrl: string = ""
-  gameType: GameType | undefined = undefined
-  cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
+  private apiBase = "https://www.swapi.tech/api"
+  private randomIds: string[] = []
+  private gameUrl: string = ""
+  private gameType: GameType | undefined = undefined
+  private cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
   cardData = signal<CardData[]>(this.cardDataInitialValues)
   loading = signal<boolean>(false)
   http = inject(HttpClient)
 
-  playTheGame(type: GameType) {
+  public playTheGame(type: GameType) {
     this.loading.set(true)
     this.gameType = type
     this.gameUrl = gameData.filter(x => x.type === type)[0].url
@@ -43,7 +43,11 @@ export class GamePlayService {
     })
   }
 
-  getRandomIds(ids: string[]): string[] {
+  public resetGame() {
+    this.cardData.set(this.cardDataInitialValues)
+  }
+
+  private getRandomIds(ids: string[]): string[] {
     if(ids.length < 2) {
       return []
     }
@@ -54,14 +58,14 @@ export class GamePlayService {
     return [ids[id1], reducedIds[id2]]
   }
 
-  getCardsData() {
+  private getCardsData() {
     if(this.randomIds.length != 2) {
       return
-    }
+    }    
     forkJoin([
       this.http.get<any>(`${this.apiBase}/${this.gameUrl}/${this.randomIds[0]}`),
       this.http.get<any>(`${this.apiBase}/${this.gameUrl}/${this.randomIds[1]}`),
-    ])
+    ]).pipe(take(1))
     .subscribe({
         next: ([data1, data2]) => {
           const dataArray: any[] = [data1.result.properties, data2.result.properties]
@@ -89,7 +93,7 @@ export class GamePlayService {
       });
   }
 
-  parseCardProperties(item: any, index: number): CardData {
+  private parseCardProperties(item: any, index: number): CardData {
     const cardDataItem: CardData = {totalScore: this.cardData()[index].totalScore}
     switch(this.gameType) {
       case GameType.PEOPLE: {
@@ -110,7 +114,7 @@ export class GamePlayService {
     return cardDataItem
   }
 
-  findWinner(cards: CardData[]) {
+  private findWinner(cards: CardData[]) {
     if(cards.length != 2) {
       return
     }
@@ -126,16 +130,12 @@ export class GamePlayService {
     }
   }
 
-  updateScore(cards: CardData[]) {
+  private updateScore(cards: CardData[]) {
     const winner = cards.find(x => x.isWinner)
     if(!winner) {
       return
     } else {
       winner.totalScore += 1
     }
-  }
-
-  resetGame() {
-    this.cardData.set(this.cardDataInitialValues)
-  }
+  }  
 }
