@@ -68,7 +68,7 @@ export class GamePlayService {
     ]).pipe(take(1))
     .subscribe({
         next: ([data1, data2]) => {
-          const dataArray: any[] = [data1.result.properties, data2.result.properties]
+          const dataArray: any[] = [data1.result?.properties, data2.result?.properties]
           const cardDataArray: CardData[] = []
 
           dataArray.forEach((item, index) => {
