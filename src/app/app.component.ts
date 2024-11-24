@@ -24,23 +24,23 @@ import { GameType } from './models/game-type.model';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  dropdownData = gameData
-  gameTypes = GameType
-  gameType: string = this.gameTypes[gameData[0].type]
-  gamePlayService = inject(GamePlayService)
-  cardData = this.gamePlayService.cardData
-  loading = this.gamePlayService.loading
+  private gamePlayService = inject(GamePlayService)
+  public dropdownData = gameData
+  public gameTypes = GameType
+  public gameType: string = this.gameTypes[gameData[0].type]
+  public cardData = this.gamePlayService.cardData
+  public loading = this.gamePlayService.loading
 
-  changeGameType(type: MatSelectChange) {
+  public changeGameType(type: MatSelectChange) {
     this.gameType = type.value
     this.resetGame()
   }
 
-  playTheGame() {
+  public playTheGame() {
     this.gamePlayService.playTheGame(GameType[this.gameType as keyof typeof GameType])
   }
 
-  resetGame() {
+  public resetGame() {
     this.gamePlayService.resetGame()
   }
 }

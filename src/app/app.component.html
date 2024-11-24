@@ -9,7 +9,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button mat-flat-button color="danger" (click)="resetGame()">
+      <button mat-flat-button color="danger" id="resetButton" (click)="resetGame()">
         <mat-icon>restart_alt</mat-icon>
         Reset game
       </button>
@@ -19,7 +19,7 @@
       <app-card [playerNumber]="2" [gameType]="gameType" [cardData]="cardData()[1]" [loading]="loading()"></app-card>
     </div>
     <div class="play-button">
-      <button mat-flat-button (click)="playTheGame()">
+      <button mat-flat-button id='playButton' (click)="playTheGame()">
         <mat-icon>play_arrow</mat-icon>
         Play
       </button>

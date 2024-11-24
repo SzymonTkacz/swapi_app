@@ -1,17 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { GamePlayService } from './services/game-play.service';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { provideHttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
-  //let gamePlayServiceSpy: SpyObj<GamePlayService>
-  //let service: GamePlayService;
 
   beforeEach(async () => {
-    //gamePlayServiceSpy = createSpyObj('GamePlayService', ['playTheGame'])
-
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [provideHttpClient()]
@@ -21,19 +14,27 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+
     expect(app).toBeTruthy();
   });
 
-  // it(`should have the 'swapi_app' title`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('swapi_app');
-  // });
+  it('should click Play button and call playTheGame method', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    spyOn(app, 'playTheGame');  
+    let button = fixture.debugElement.nativeElement.querySelector('#playButton');
+    button.click();
+    
+    expect(app.playTheGame).toHaveBeenCalled();
+  });
 
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('h1')?.textContent).toContain('Hello, swapi_app');
-  // });
+  it('should click Reset button and call resetGame method', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    spyOn(app, 'resetGame');  
+    let button = fixture.debugElement.nativeElement.querySelector('#resetButton');
+    button.click();
+    
+    expect(app.resetGame).toHaveBeenCalled();
+  });
 });

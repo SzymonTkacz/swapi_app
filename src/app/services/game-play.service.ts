@@ -16,9 +16,9 @@ export class GamePlayService {
   private gameUrl: string = ""
   private gameType: GameType | undefined = undefined
   private cardDataInitialValues: CardData[] = [{totalScore: 0}, {totalScore: 0}]
-  cardData = signal<CardData[]>(this.cardDataInitialValues)
-  loading = signal<boolean>(false)
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
+  public cardData = signal<CardData[]>(this.cardDataInitialValues)
+  public loading = signal<boolean>(false)
 
   public playTheGame(type: GameType) {
     this.loading.set(true)
