@@ -16,7 +16,7 @@ import { Starship } from '../../models/starship.model';
 })
 export class CardComponent {
   gameTypes = GameType
-  @Input() playerNumber: number = 0
+  @Input() playerNr: number = 0
   @Input() gameType!: string
   @Input() cardData!: CardData
   @Input() loading: boolean = false

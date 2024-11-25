@@ -1,0 +1,23 @@
+{
+    "message": "ok",
+    "result": {
+        "properties": {
+            "height": "88",
+            "mass": "20",
+            "hair_color": "brown",
+            "skin_color": "brown",
+            "eye_color": "brown",
+            "birth_year": "8BBY",
+            "gender": "male",
+            "created": "2024-11-24T03:38:28.424Z",
+            "edited": "2024-11-24T03:38:28.424Z",
+            "name": "Wicket Systri Warrick",
+            "homeworld": "https://www.swapi.tech/api/planets/7",
+            "url": "https://www.swapi.tech/api/people/30"
+        },
+        "description": "A person within the Star Wars universe",
+        "_id": "5f63a36fee9fd7000499be5e",
+        "uid": "30",
+        "__v": 0
+    }
+}

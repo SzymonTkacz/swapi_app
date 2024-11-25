@@ -54,8 +54,8 @@ export class GamePlayService {
     const id1 = Math.floor(Math.random() * ids.length);
     const reducedIds = ids.filter(x => x !== ids[id1])
     const id2 = Math.floor(Math.random() * reducedIds.length);
-
-    return [ids[id1], reducedIds[id2]]
+    
+    return [ids[id1], reducedIds[id2]].sort((a, b) =>  Number(a) - Number(b))
   }
 
   private getCardsData() {

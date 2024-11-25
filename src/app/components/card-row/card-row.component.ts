@@ -10,6 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './card-row.component.scss'
 })
 export class CardRowComponent {
+  @Input() testId: string = ""
   @Input() label: string = ""
   @Input() value?: string = ""
   @Input() loading: boolean = false

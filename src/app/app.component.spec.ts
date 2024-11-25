@@ -22,7 +22,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     spyOn(app, 'playTheGame');  
-    let button = fixture.debugElement.nativeElement.querySelector('#playButton');
+    let button = fixture.debugElement.nativeElement.querySelector('button[data-test-id="playButton"]');
     button.click();
     
     expect(app.playTheGame).toHaveBeenCalled();
@@ -32,7 +32,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     spyOn(app, 'resetGame');  
-    let button = fixture.debugElement.nativeElement.querySelector('#resetButton');
+    let button = fixture.debugElement.nativeElement.querySelector('button[data-test-id="resetButton"]');
     button.click();
     
     expect(app.resetGame).toHaveBeenCalled();

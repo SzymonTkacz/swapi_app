@@ -1,46 +1,46 @@
 <mat-card appearance="outlined" [class.winner]="cardData.isWinner && !loading">
     <mat-card-header>
-        <mat-card-title>Player {{playerNumber}}</mat-card-title>
+        <mat-card-title>Player {{playerNr}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         @switch (gameType) {
             @case (gameTypes[gameTypes.PEOPLE]) {                
                 @for(row of getPersonProperties(); track row?.name) {
-                    <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
-                    <app-card-row label="Mass" [value]="row?.mass" [loading]="loading" [highlighted]="true"></app-card-row>
-                    <app-card-row label="Birth year" [value]="row?.birth_year" [loading]="loading"></app-card-row>
-                    <app-card-row label="Created" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
-                    <app-card-row label="Edited" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
-                    <app-card-row label="Eye color" [value]="row?.eye_color" [loading]="loading"></app-card-row>
-                    <app-card-row label="Gender" [value]="row?.gender" [loading]="loading"></app-card-row>
-                    <app-card-row label="Hair color" [value]="row?.hair_color" [loading]="loading"></app-card-row>
-                    <app-card-row label="Height" [value]="row?.height" [loading]="loading"></app-card-row>
-                    <app-card-row label="Skin color" [value]="row?.skin_color" [loading]="loading"></app-card-row>
+                    <app-card-row label="Name" [testId]="'personName'+playerNr" [value]="row?.name" [loading]="loading"></app-card-row>
+                    <app-card-row label="Mass" [testId]="'mass'+playerNr" [value]="row?.mass" [loading]="loading" [highlighted]="true"></app-card-row>
+                    <app-card-row label="Birth year" [testId]="'birthYear'+playerNr" [value]="row?.birth_year" [loading]="loading"></app-card-row>
+                    <app-card-row label="Created" [testId]="'personCreated'+playerNr" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Edited" [testId]="'personEdited'+playerNr" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Eye color" [testId]="'eyeColor'+playerNr" [value]="row?.eye_color" [loading]="loading"></app-card-row>
+                    <app-card-row label="Gender" [testId]="'gender'+playerNr" [value]="row?.gender" [loading]="loading"></app-card-row>
+                    <app-card-row label="Hair color" [testId]="'hairColor'+playerNr" [value]="row?.hair_color" [loading]="loading"></app-card-row>
+                    <app-card-row label="Height" [testId]="'height'+playerNr" [value]="row?.height" [loading]="loading"></app-card-row>
+                    <app-card-row label="Skin color" [testId]="'skinColor'+playerNr" [value]="row?.skin_color" [loading]="loading"></app-card-row>
                 }
             }
             @case (gameTypes[gameTypes.STARSHIPS]) {
                 @for(row of getStarshipProperties(); track row?.name) {
-                    <app-card-row label="Name" [value]="row?.name" [loading]="loading"></app-card-row>
-                    <app-card-row label="Crew" [value]="row?.crew" [loading]="loading" [highlighted]="true"></app-card-row>
-                    <app-card-row label="Model" [value]="row?.model" [loading]="loading"></app-card-row>
-                    <app-card-row label="MGLT" [value]="row?.MGLT" [loading]="loading"></app-card-row>
-                    <app-card-row label="Created" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
-                    <app-card-row label="Edited" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
-                    <app-card-row label="Cargo capacity" [value]="row?.cargo_capacity" [loading]="loading"></app-card-row>
-                    <app-card-row label="Consumables" [value]="row?.consumables" [loading]="loading"></app-card-row>
-                    <app-card-row label="Cost in credits" [value]="row?.cost_in_credits" [loading]="loading"></app-card-row>
-                    <app-card-row label="Hyperdrive rating" [value]="row?.hyperdrive_rating" [loading]="loading"></app-card-row>
-                    <app-card-row label="Length" [value]="row?.length" [loading]="loading"></app-card-row>
-                    <app-card-row label="Manufacturer" [value]="row?.manufacturer" [loading]="loading"></app-card-row>
-                    <app-card-row label="Max atmosphering speed" [value]="row?.max_atmosphering_speed" [loading]="loading"></app-card-row>
-                    <app-card-row label="Passengers" [value]="row?.passengers" [loading]="loading"></app-card-row>
+                    <app-card-row label="Name" [testId]="'shipName'+playerNr" [value]="row?.name" [loading]="loading"></app-card-row>
+                    <app-card-row label="Crew"  [testId]="'crew'+playerNr" [value]="row?.crew" [loading]="loading" [highlighted]="true"></app-card-row>
+                    <app-card-row label="Model"  [testId]="'model'+playerNr" [value]="row?.model" [loading]="loading"></app-card-row>
+                    <app-card-row label="MGLT"  [testId]="'mglt'+playerNr" [value]="row?.MGLT" [loading]="loading"></app-card-row>
+                    <app-card-row label="Created"  [testId]="'shipCreated'+playerNr" [value]="(row?.created | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Edited"  [testId]="'shipEdited'+playerNr" [value]="(row?.edited | date) || ''" [loading]="loading"></app-card-row>
+                    <app-card-row label="Cargo capacity"  [testId]="'capacity'+playerNr" [value]="row?.cargo_capacity" [loading]="loading"></app-card-row>
+                    <app-card-row label="Consumables"  [testId]="'consumables'+playerNr" [value]="row?.consumables" [loading]="loading"></app-card-row>
+                    <app-card-row label="Cost in credits" [testId]="'cost'+playerNr" [value]="row?.cost_in_credits" [loading]="loading"></app-card-row>
+                    <app-card-row label="Hyperdrive rating"  [testId]="'rating'+playerNr" [value]="row?.hyperdrive_rating" [loading]="loading"></app-card-row>
+                    <app-card-row label="Length"  [testId]="'length'+playerNr" [value]="row?.length" [loading]="loading"></app-card-row>
+                    <app-card-row label="Manufacturer"  [testId]="'manufacturer'+playerNr" [value]="row?.manufacturer" [loading]="loading"></app-card-row>
+                    <app-card-row label="Max atmosphering speed"  [testId]="'speed'+playerNr" [value]="row?.max_atmosphering_speed" [loading]="loading"></app-card-row>
+                    <app-card-row label="Passengers"  [testId]="'passengers'+playerNr" [value]="row?.passengers" [loading]="loading"></app-card-row>
                 }
             }
         }
     </mat-card-content>
     <mat-card-footer>
         <div class="footer">
-            <h3>{{cardData.totalScore}}</h3>
+            <h3 [attr.id]="'score'+playerNr">{{cardData.totalScore}}</h3>
         </div>
     </mat-card-footer>
 </mat-card>
