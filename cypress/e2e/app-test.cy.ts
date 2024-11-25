@@ -1,23 +1,7 @@
-function playTheGame(){    
-    cy.intercept('GET', 'https://www.swapi.tech/api/people?page=1&limit=100',
-        {results: [{uid: '1'}, {uid: '2'}]}
-    ).as('people')
-    cy.intercept('GET', 'https://www.swapi.tech/api/people/1', 
-        {fixture: 'getPerson1.json'}
-    ).as('person1')
-    cy.intercept('GET', 'https://www.swapi.tech/api/people/2', 
-        {fixture: 'getPerson2.json'}
-    ).as('person2')
-    cy.get('button[data-test-id="playButton"]').click()
-    cy.wait('@people')
-    cy.wait('@person1')
-    cy.wait('@person2')
-}
-
 describe('play the game', () => {
     it('should play the game and check if data is correct', () => {
         cy.visit('http://localhost:4200/')
-        playTheGame()
+        cy.playTheGame()
 
         cy.get("span[id='personName1']").should("have.text","Jocasta Nu");
         cy.get("span[id='mass1']").should("have.text","78");
@@ -45,11 +29,11 @@ describe('play the game', () => {
     it('should play the game twice and check if score increments properly', () => {
         cy.visit('http://localhost:4200/')
 
-        playTheGame()        
+        cy.playTheGame()        
         cy.get("h3[id='score1']").should("have.text","1");
         cy.get("h3[id='score2']").should("have.text","0");
 
-        playTheGame()
+        cy.playTheGame()
         cy.get("h3[id='score1']").should("have.text","2");
         cy.get("h3[id='score2']").should("have.text","0");        
     })
@@ -57,8 +41,8 @@ describe('play the game', () => {
     it('should play the game twice, reset game and check if fields are cleared', () => {
         cy.visit('http://localhost:4200/')
 
-        playTheGame()
-        playTheGame()
+        cy.playTheGame()
+        cy.playTheGame()
         cy.get('button[data-test-id="resetButton"]').click()
 
         cy.get("h3[id='score1']").should("have.text","0");
@@ -85,5 +69,6 @@ describe('play the game', () => {
         cy.get("span[id='hairColor2']").should("have.text","");
         cy.get("span[id='height2']").should("have.text","");
         cy.get("span[id='skinColor2']").should("have.text","");
+
     })
 })
