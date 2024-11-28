@@ -1,7 +1,7 @@
 <div class="card-row" [class.highlighted]="highlighted">
     <span class="label">{{label}}:</span>    
     @if(loading) {
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar id="loader" mode="indeterminate"></mat-progress-bar>
     } @else {
         <span [attr.id]='testId'>{{value | truncate:[label.length]}}</span>
     }
